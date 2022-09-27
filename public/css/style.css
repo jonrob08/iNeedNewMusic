@@ -5,5 +5,60 @@ nav ul li {
 }
 
 h1 {
-  color: chartreuse;
+  color: #1dc367;
+}
+
+body {
+  background: #FCE97F;
+  animation: fadeBackground 200s;
+  animation-fill-mode: forwards;
+}
+
+.btn-group {
+  background-color: #04AA6D; 
+  border: 1px solid green; 
+  color: white; 
+  padding: 10px 24px;
+  cursor: pointer; 
+  width: 10%; 
+  display: block; 
+  margin: 10px
+}
+
+.btn-group button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+
+@keyframes fadeBackground {
+  0%     {background-color:#FCE97F;}
+  5.0%  {background-color:#2EB07B;}  
+  10%     {background-color:#FCE97F;}
+  15.0%  {background-color:#2EB07B;}  
+  20%     {background-color:#FCE97F;}
+  25.0%  {background-color:#2EB07B;}  
+  30%     {background-color:#FCE97F;}
+  35.0%  {background-color:#2EB07B;}
+  40%     {background-color:#FCE97F;}
+  45.0%  {background-color:#2EB07B;}
+  50%     {background-color:#FCE97F;}
+  55.0%  {background-color:#2EB07B;}
+  60%     {background-color:#FCE97F;}
+  65.0%  {background-color:#2EB07B;}
+  70%     {background-color:#FCE97F;}
+  75.0%  {background-color:#2EB07B;}
+  80%     {background-color:#FCE97F;}
+  85.0%  {background-color:#2EB07B;}
+  90%     {background-color:#FCE97F;}
+  95.0%  {background-color:#2EB07B;}
+  100%     {background-color:#000000;}
+
+
+  
+
 }

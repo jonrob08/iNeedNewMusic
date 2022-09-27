@@ -1,89 +1,51 @@
-const db = require('./models');
+require('dotenv').config();
+const axios = require('axios');
+const qs = require('qs');
 
-// Implement CRUD for user model
+const client_id = process.env.SPOTIFY_API_ID; // Your client id
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
+const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64');
 
-// CREATE
-async function createUser() {
-    try {
-        const newUser = await db.user.create({
-            name: "My Name",
-            email: "myemail@gmail.com"
-        });
-        console.log('my new user >>>', newUser);
-    } catch (error) {
-        console.log('new user was not created b/c of >>>', error);
+const getAuth = async () => {
+    try{
+      //make post request to SPOTIFY API for access token, sending relavent info
+      const token_url = 'https://accounts.spotify.com/api/token';
+      const data = qs.stringify({'grant_type':'client_credentials'});
+  
+      const response = await axios.post(token_url, data, {
+        headers: { 
+          'Authorization': `Basic ${auth_token}`,
+          'Content-Type': 'application/x-www-form-urlencoded' 
+        }
+      })
+      //return access token
+      return response.data.access_token;
+      //console.log(response.data.access_token);   
+    }catch(error){
+      //on fail, log the error in console
+      console.log(error);
     }
-    
-}
-// @todo run createUser function below
-
-// READ
-// find one user
-async function findOneUser() {
-    try {
-        const user = await db.user.findOne({
-            where: { id: 1 }
-        });
-        console.log('current user here >>>', user);  
-    } catch (error) {
-        console.log('did not find user b/c of >>>', error);
-    }
-}
-// @todo run findOneUser function below
-
-// find all users
-async function findAllUsers() {
-    try {
-        const users = await db.user.findAll();
-        console.log('all users here >>>', users);  
-    } catch (error) {
-        console.log('did not find all users because of >>>', error);
-    }
-}
-// @todo run findAllUsers function below
-
-// find one user
-async function findOrCreate() {
-    try {
-        const users = await db.user.findOrCreate({
-            where: { email: 'brainsmith@gmail.com' },
-            defaults: {
-                name: 'Brian Smith',
-            },
-        });
-        console.log('all users here >>>', users);  
-    } catch (error) {
-        console.log('did not find all users because of >>>', error);
-    }
-}
-// @todo run findOrCreate function below
-
-// UPDATE
-async function updateUser() {
-    try {
-        const numRowsUpdated = await db.user.update({
-            name: 'Brain Taco'
-        }, {
-            where: {
-                email: 'brainsmith@gmail.com'
-            }
-        });
-        console.log('number of users updated', numRowsUpdated);
-    } catch (error) {
-        console.log('did not update user(s) because of >>>', error);
-    }
-}
-// @todo run updateUser function below
-
-// DELETE
-async function deleteUser() {
-    try {
-        let numOfRowsDeleted = await db.user.destroy({
-            where: { email: 'brainsmith@gmail.com' }
-        });
-        console.log('number of rows deleted >>>', numOfRowsDeleted);
-    } catch (error) {
-        console.log('did not delete user(s) because of >>>', error);
-    }
-}
-// @todo run deleteUser function below
+  }
+  
+  const getAudioFeatures_Track = async (track_id) => {
+    //request token using getAuth() function
+    const access_token = await getAuth();
+    //console.log(access_token);
+  
+    const api_url = `https://api.spotify.com/v1/audio-features/${track_id}`;
+    //console.log(api_url);
+    try{
+      const response = await axios.get(api_url, {
+        headers: {
+          'Authorization': `Bearer ${access_token}`
+        }
+      });
+      //console.log(response.data);
+      return response.data;
+    }catch(error){
+      console.log(error);
+    }  
+  };
+  
+  console.log(getAudioFeatures_Track('07A0whlnYwfWfLQy4qh3Tq'));
+  

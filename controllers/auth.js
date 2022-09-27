@@ -5,11 +5,11 @@ const passport = require('../config/ppConfig');
 const db = require('../models');
 
 router.get("/signup", (req, res) => {
-  res.render("auth/signup");
+  res.render("auth/signup", { req });
 });
 
 router.get("/login", (req, res) => {
-  res.render("auth/login");
+  res.render("auth/login", { req });
 });
 
 router.post('/login', passport.authenticate('local', {
@@ -52,7 +52,9 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  req.logOut(); // logs the user out of the session
+  req.logOut(() => {
+    console.log('I am logged out')
+  }); // logs the user out of the session
   req.flash('success', 'Logging out... See you next time!');
   res.redirect('/');
 });

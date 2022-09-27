@@ -37,6 +37,17 @@ In the space below:
 ### Wireframes
 
 ----------------------------------------------------------
+### Dev Notes
+Get a list of Categories
+- https://api.spotify.com/v1/browse/categories/
+Get a list of Category Playlists
+- https://api.spotify.com/v1/browse/categories/{category_id}/playlists
+Get a playlist's items (tracks)
+- https://api.spotify.com/v1/playlists/{playlist_id}/tracks
+Get a track
+- https://api.spotify.com/v1/tracks/{id}
+
+----------------------------------------------------------
 
 Make a PR when you're done!
 

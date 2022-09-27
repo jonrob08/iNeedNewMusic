@@ -1,0 +1,126 @@
+<h2><%= name %>'s Profile Page</h2>
+
+<h3>Welcome to your profile! Here you can view, edit, and delete all your saved songs! </h3>
+
+<p>Id: <%= id %></p>
+<p>Name: <%= name %></p>
+
+<p>Change Email: <%= email %></p>
+
+<% let currentSong = "" %> 
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Song Title</th>
+            <th scope="col">Artist(s)</th>
+            <th scope="col">Edit Song</th>
+            <th scope="col">Remove Song</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% playlist.forEach((track) => {%> 
+                <tr>
+                  <th scope="row"><%= track.dataValues.id %></th>
+                  <td><%= track.dataValues.trackTitle %></td>
+                  <td><%= track.dataValues.trackArtist %></td>
+                 <!-- We serialize the song data as a json string so it can be read by jquery later on-->
+                  <td><button class="btn btn-primary edit"  data-song='<%=JSON.stringify(track)%>' data-target="#editModal">Update this song</button></td>
+                  <td><button class="btn btn-danger delete" data-song='<%=JSON.stringify(track)%>'  data-target="#removeModal">THIS SONG SUCKS!</button></td>
+                </tr>
+
+                <% currentSong = track.dataValues %> 
+                <% return currentSong %> 
+
+                
+                
+            <%   }) %> 
+       
+        </tbody>
+      </table>
+
+<% console.log(playlist) %> 
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="/profile/<%= currentSong.id %>/?_method=PUT">
+                <label for="artistEdit"></label>
+                <input type="text" id="artistEdit" name="newArtist" >
+                <label for="trackEdit"></label>
+                <input type="text" id="trackEdit" name="newTitle" >
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            <div class="modal-body">
+                <form method="GET" action="/profile/<%= currentSong.id %>/?_method=DELETE">
+                    <h1>Are you sure you want to remove this totally awesome song?</h1>
+                    <button type="submit" class="btn btn-primary">Yup.</button>
+                </form>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script type="text/javascript">
+    function showModalForRemove(){
+        // We extract the song data from the data attribute
+        const {song} = jQuery(this).data()
+    
+        $("#removeModal form").attr("action", `/profile/${song.id}?_method=DELETE`)
+        
+        $("#removeModal").modal()
+    }
+    function showModalForUpdate(){
+        // We extract the song data from the data attribute
+
+        const {song} = jQuery(this).data()
+        // Update the track title
+        $("#trackEdit").val(song.trackTitle)
+        // Update the track artist
+
+        $("#artistEdit").val(song.trackArtist)
+        // Change the url so it edits the correct song
+        $("#editModal form").attr("action", `/profile/${song.id}?_method=PUT`)
+       // finally this line shows the modal
+        $("#editModal").modal()
+    }
+
+    //On click, we call the corresponding edit/delete functions
+    jQuery(".edit").click(showModalForUpdate)
+    jQuery(".delete").click(showModalForRemove)
+    
+</script>
+

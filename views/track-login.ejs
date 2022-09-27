@@ -1,0 +1,38 @@
+
+
+
+
+
+
+    <% track.album.images.forEach(image => {%> 
+        <%  if(image.height <= 300 && image.height >= 200){%> 
+
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="<%= image.url %>" alt="Card image cap">
+                <div class="card-body">
+                    <h1><%= track.name %></h1>
+                    <h2>Artists:</h2>
+                    <% track.artists.forEach(artist => {%> 
+                        <p><%= artist.name %></p>
+                        <%}); %> 
+                </div>
+              </div>
+            <%  }%> 
+        <%}) %> 
+<div>
+    <a href="<%= track.external_urls.spotify %>">Listen on Spotify Here!</a>
+</div>
+
+<form action="./profile-add" method="POST">
+    <input type="hidden" value="<%= track.name %>" name="trackTitle">
+    <input type="hidden" value="<%= track.artists.map(a=>a.name).join(", ") %>" name="trackArtists">
+    <button type="submit">Add this to your playlist!</button>
+    <!-- <button onclick="
+        fetch('/profile-add', {
+            method: 'post', body: new FormData(document.getElementById('addTrackForm'))
+        })">Add this to your playlist!</button> -->
+</form>
+
+
+
+<% console.log("RIGHT HERE >>>>>", track.album.images) %> 
