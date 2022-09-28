@@ -15,6 +15,8 @@
             <th scope="col">#</th>
             <th scope="col">Song Title</th>
             <th scope="col">Artist(s)</th>
+            <th scope="col">My Review</th>
+            <th scope="col">Review This Song (Out of 5)</th>
             <th scope="col">Edit Song</th>
             <th scope="col">Remove Song</th>
           </tr>
@@ -25,37 +27,55 @@
                   <th scope="row"><%= track.dataValues.id %></th>
                   <td><%= track.dataValues.trackTitle %></td>
                   <td><%= track.dataValues.trackArtist %></td>
-                 <!-- We serialize the song data as a json string so it can be read by jquery later on-->
+                  <td>
+                    <%if (track.dataValues.myReviews.length === 0) {%>
+                    No reviews
+                    <%}%>
+                    <% track.dataValues.myReviews.forEach((review) => {%> 
+                   <%= review.dataValues.review %>
+                    <%   }) %> 
+                  </td>
+                  <td>
+                    <%if (track.dataValues.myReviews.length=== 0) {%>
+                      <a href="/reviews/new?playlistId=<%=track.dataValues.id%>" class="btn btn-secondary">Review this song</a>
+
+                      <%}%>
+                  </td>
+                 <!-- serializing the song data as a json string so it can be read by jquery later on-->
                   <td><button class="btn btn-primary edit"  data-song='<%=JSON.stringify(track)%>' data-target="#editModal">Update this song</button></td>
                   <td><button class="btn btn-danger delete" data-song='<%=JSON.stringify(track)%>'  data-target="#removeModal">THIS SONG SUCKS!</button></td>
                 </tr>
 
                 <% currentSong = track.dataValues %> 
                 <% return currentSong %> 
-
                 
-                
+            
             <%   }) %> 
        
         </tbody>
       </table>
 
-<% console.log(playlist) %> 
+<% playlist.forEach((play) => {%> 
+  <% let reviews = play.dataValues.myReviews %> 
+  <% reviews.forEach((review) => {%> 
+    <%console.log("YO BRUV>>>>>", review.dataValues.review)%> 
+    <%}) %> 
+  <% }) %> 
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="modalAriaLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+          <h5 class="modal-title" id="modalLabel">Edit Song</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
             <form method="POST" action="/profile/<%= currentSong.id %>/?_method=PUT">
-                <label for="artistEdit"></label>
+                <label for="artistEdit">Edit Artist</label>
                 <input type="text" id="artistEdit" name="newArtist" >
-                <label for="trackEdit"></label>
+                <label for="trackEdit">Edit Track Name</label>
                 <input type="text" id="trackEdit" name="newTitle" >
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
@@ -69,11 +89,11 @@
   </div>
 
 
-  <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="modalAriaLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="modalLabel">Wait seriously?</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -81,7 +101,7 @@
             <div class="modal-body">
                 <form method="GET" action="/profile/<%= currentSong.id %>/?_method=DELETE">
                     <h1>Are you sure you want to remove this totally awesome song?</h1>
-                    <button type="submit" class="btn btn-primary">Yup.</button>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 10px">Yup.</button>
                 </form>
             </div>
         <div class="modal-footer">
@@ -91,8 +111,6 @@
       </div>
     </div>
   </div>
-
-
 
   <script type="text/javascript">
     function showModalForRemove(){

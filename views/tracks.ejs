@@ -1,24 +1,24 @@
 <% let track_id = 0 %>
 
-<h1>Your Tracks</h1>
+<h1>Check Out These Tracks!</h1>
 
 
  
-
+<div style="align-content: center; display: flex; flex-wrap: wrap;">
     <% tracks.forEach(track => {%> 
     
         <form method="GET" action="./track">
-        <button type="submit" id="<%=track_id%>" value="<%= track.track.id %> " name="track" class="btn-group">
-            <h3><%= track.track.name %> </h3>
+        <button type="submit" id="<%=track_id%>" style="width: 200px; height: 200px;" value="<%= track.track.id %> " name="track" class="btn-group">
+            <h4 class="text-shadow"><%= track.track.name %> </h4>
             By:
             <% track.track.artists.forEach(artist =>{ %>  
              <%= artist.name %>
              <%}) %>
         </button>
         </form>
-        <%=  console.log("START HERE>>>>>>>" ) %> 
         <% track_id ++ %> 
         <% }) %>  
+      </div>
     
 
 

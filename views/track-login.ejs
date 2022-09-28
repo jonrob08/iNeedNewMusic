@@ -25,6 +25,7 @@
 
 <form action="./profile-add" method="POST">
     <input type="hidden" value="<%= track.name %>" name="trackTitle">
+    <input type="hidden" value="<%= track.id %>" name="trackId">
     <input type="hidden" value="<%= track.artists.map(a=>a.name).join(", ") %>" name="trackArtists">
     <button type="submit">Add this to your playlist!</button>
     <!-- <button onclick="

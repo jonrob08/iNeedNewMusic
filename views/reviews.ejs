@@ -1,0 +1,16 @@
+<h1>Reviewing <%= track.trackTitle %> </h1>
+
+<form method="POST" action="/reviews">
+    <label for=""><%= track.trackTitle %> </label>
+    <input type="hidden" id="artistEdit" name="myPlaylistId" value="<%= track.id %>" >
+   
+    <select name="review" id="">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <textarea name="comments" id="" cols="30" rows="10"></textarea>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>

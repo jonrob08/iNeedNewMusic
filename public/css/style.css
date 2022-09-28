@@ -14,6 +14,33 @@ body {
   animation-fill-mode: forwards;
 }
 
+.text-shadow{
+  text-shadow: 1px 1px 0 #000,
+            -1px 1px 0 #000,
+            1px -1px 0 #000,
+            -1px -1px 0 #000,
+            0px 1px 0 #000,
+            0px -1px 0 #000,
+            -1px 0px 0 #000,
+            1px 0px 0 #000,
+            2px 2px 0 #000,
+            -2px 2px 0 #000,
+            2px -2px 0 #000,
+            -2px -2px 0 #000,
+            0px 2px 0 #000,
+            0px -2px 0 #000,
+            -2px 0px 0 #000,
+            2px 0px 0 #000,
+            1px 2px 0 #000,
+            -1px 2px 0 #000,
+            1px -2px 0 #000,
+            -1px -2px 0 #000,
+            2px 1px 0 #000,
+            -2px 1px 0 #000,
+            2px -1px 0 #000,
+            -2px -1px 0 #000;
+}
+
 .btn-group {
   background-color: #04AA6D; 
   border: 1px solid green; 
@@ -37,26 +64,26 @@ body {
 
 @keyframes fadeBackground {
   0%     {background-color:#FCE97F;}
-  5.0%  {background-color:#2EB07B;}  
+  5.0%  {background-color:#1c7552;}  
   10%     {background-color:#FCE97F;}
-  15.0%  {background-color:#2EB07B;}  
+  15.0%  {background-color:#1c7552;}  
   20%     {background-color:#FCE97F;}
-  25.0%  {background-color:#2EB07B;}  
+  25.0%  {background-color:#1c7552;}  
   30%     {background-color:#FCE97F;}
-  35.0%  {background-color:#2EB07B;}
+  35.0%  {background-color:#1c7552;}
   40%     {background-color:#FCE97F;}
-  45.0%  {background-color:#2EB07B;}
+  45.0%  {background-color:#1c7552;}
   50%     {background-color:#FCE97F;}
-  55.0%  {background-color:#2EB07B;}
+  55.0%  {background-color:#1c7552;}
   60%     {background-color:#FCE97F;}
-  65.0%  {background-color:#2EB07B;}
+  65.0%  {background-color:#1c7552;}
   70%     {background-color:#FCE97F;}
-  75.0%  {background-color:#2EB07B;}
+  75.0%  {background-color:#1c7552;}
   80%     {background-color:#FCE97F;}
-  85.0%  {background-color:#2EB07B;}
+  85.0%  {background-color:#1c7552;}
   90%     {background-color:#FCE97F;}
-  95.0%  {background-color:#2EB07B;}
-  100%     {background-color:#000000;}
+  95.0%  {background-color:#1c7552;}
+  100%     {background-color:#FCE97F;}
 
 
   
