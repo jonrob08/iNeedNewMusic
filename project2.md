@@ -11,12 +11,12 @@ Fork & Clone this repo.
 - [ ] In this space below, list **THREE** ideas for your Project 2. For each idea, include [user stories](https://www.atlassian.com/agile/project-management/user-stories) for each idea and a link to the API(s) you want to use for it.
 
 --------------------------------------------------------
-1. 
-2. 
-3.
+1. Spotify music search
+2. Spotify Playlist creator
+3. ESPN Team Builder
 ---------------------------------------------------------
 
-- [ ] Make a PR when you're done!
+- [x] Make a PR when you're done!
 
 ---
 
@@ -32,10 +32,25 @@ In the space below:
 
 ----------------------------------------------------------
 ### User Stories
+1. As a User, I want to Signup so that I can utilize a profile
+2. As a User, I want to Login so that I can add songs to personal playlists
+3. As a User, I want to browse Spotify genres so I can look at the Spotify playlists 
+4. As a User, I want to browse Spotify playlists so that I can view songs within that playlist
+5. As a User, I want to view information on a song within a playlist
+6. As a User, I want to go to the spotify URL to play the song
+7. As a User, I want to be able to add a song to my personal playlist
+8. As a User, I want to be able to review songs in my personal playlist
+9. As a User, I want to be able to edit the name and artist of any song in my playlist
+10. As a User, I want to be able to delete songs out of my personal playlist
+11. As a non-logged in User, I want to be able to browse Spotify genres so I can look at the Spotify playlists 
+12. As a non-logged in User, I want to browse Spotify playlists so that I can view songs within that playlist
+13. As a non-logged in User, I want to view information on a song within a playlist
+14. As a non-logged in User, I want to go to the spotify URL to play the song
+
 
 ----------------------------------------------------------
 ### Wireframes
-
+![Wire Frame](./img/WireFrameiNNM.png)
 ----------------------------------------------------------
 ### Dev Notes
 Get a list of Categories
