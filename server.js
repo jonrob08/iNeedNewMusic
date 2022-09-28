@@ -173,7 +173,9 @@ app.get("/profile", isLoggedIn, (req, res) => {
       res.render("profile", { req, id, name, email, playlist: playlist });
     })
     .catch((error) => {
-      console.log(error)
+      console.log('*******************************************************');
+      console.log(error);
+      console.log('*******************************************************');
       res.status(400).render("404");
     });
 });
