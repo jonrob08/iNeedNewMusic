@@ -6,7 +6,6 @@
             <select name="playlist" id="select_playlist" class="form-control form-control-sm col-sm-10">
                 <% playlists.forEach(playlist => {%> 
                     <option value="<%= playlist.id %>"><%= playlist.name %> </option> 
-                    <% console.log(playlist)%> 
                     <% }); %>                              
             </select>
         </div>          

@@ -57,7 +57,6 @@
 <% playlist.forEach((play) => {%> 
   <% let reviews = play.dataValues.myReviews %> 
   <% reviews.forEach((review) => {%> 
-    <%console.log("YO BRUV>>>>>", review.dataValues.review)%> 
     <%}) %> 
   <% }) %> 
 
@@ -71,7 +70,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/profile/<%= currentSong.id %>/?_method=PUT">
+            <form method="POST">
                 <label for="artistEdit">Edit Artist</label>
                 <input type="text" id="artistEdit" name="newArtist" >
                 <label for="trackEdit">Edit Track Name</label>
@@ -98,7 +97,7 @@
           </button>
         </div>
             <div class="modal-body">
-                <form method="GET" action="/profile/<%= currentSong.id %>/?_method=DELETE">
+                <form method="GET">
                     <h1>Are you sure you want to remove this totally awesome song?</h1>
                     <button type="submit" class="btn btn-primary" style="margin-top: 10px">Yup.</button>
                 </form>

@@ -6,7 +6,6 @@
             <select name="genre" id="select_genre" class="form-control form-control-sm col-sm-10">
                 <% genres.forEach(genre => {%> 
                     <option value="<%= genre.id %>"><%= genre.name %> </option> 
-                    <% console.log(genre)%> 
                     <% }); %>             
             </select>
         </div>             

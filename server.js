@@ -27,7 +27,6 @@ let authKey = buff.toString("base64");
 const passport = require("./config/ppConfig");
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
-console.log("ayooo...>>>>", SECRET_SESSION);
 
 app.set("view engine", "ejs");
 app.use(require("morgan")("dev"));
