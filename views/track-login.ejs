@@ -20,10 +20,6 @@
                         <input type="hidden" value="<%= track.id %>" name="trackId">
                         <input type="hidden" value="<%= track.artists.map(a=>a.name).join(", ") %>" name="trackArtists">
                         <button type="submit" class="btn btn-primary">Add this to your playlist!</button>
-                        <!-- <button onclick="
-                            fetch('/profile-add', {
-                                method: 'post', body: new FormData(document.getElementById('addTrackForm'))
-                            })">Add this to your playlist!</button> -->
                     </form>
                 </div>
               </div>

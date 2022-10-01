@@ -18,66 +18,52 @@ const methodOverride = require("method-override");
  * Global Variables
  */
 
-const client_id = process.env.SPOTIFY_API_ID; // Your client id
-const client_secret = process.env.SPOTIFY_CLIENT_SECRET; // Your secret
+const client_id = process.env.SPOTIFY_API_ID; 
+const client_secret = process.env.SPOTIFY_CLIENT_SECRET; 
 const redirect_uri = "localhost:3002/";
 let buff = new Buffer.from(`${client_id}:${client_secret}`);
-let authKey = buff.toString("base64"); // changes key to string
+let authKey = buff.toString("base64");
 
-// Middleware config file for passport
 const passport = require("./config/ppConfig");
 
-// Secret Session Key
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log("ayooo...>>>>", SECRET_SESSION);
 
-// Tell our app to use EJS
 app.set("view engine", "ejs");
-// See Routes
 app.use(require("morgan")("dev"));
-// Take in form data
 app.use(express.urlencoded({ extended: false }));
-// See anything in public folder ie. CSS
 app.use(express.static(__dirname + "/public"));
-// need layouts for ejs to be available
 app.use(layouts);
-// Utilize method overrides in routes
 app.use(methodOverride("_method"));
-// flash middleware
 app.use(flash());
 
-// Use the secret session in our app
 app.use(
   session({
-    secret: SECRET_SESSION, // What we actually will be giving the user on our site as a session cookie
-    resave: false, // Save the session even if it's modified, make this false
-    saveUninitialized: true, // If we have a new session, we save it, therefore making that true
+    secret: SECRET_SESSION, 
+    resave: false, 
+    saveUninitialized: true,
   })
 );
 
-
-// Initialize passport and start a session
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log("res locals  >>>>>", res.locals);
   res.locals.alerts = req.flash();
-  // Get access to current user on any part of the app
   res.locals.currentUser = req.user;
-  // Do whatever the next thing is
   next();
 });
+
+
 /**
  * ROUTES
  */
 
-// Home Page Route
 app.get("/", function (req, res) {
   res.render("index", { req });
 });
 
-// Genre Selection Route
 app.get("/genre", async (req, res) => {
   axios
     .post(
@@ -101,7 +87,6 @@ app.get("/genre", async (req, res) => {
         },
       };
 
-      // Begin api request
       axios
         .get(`https://api.spotify.com/v1/browse/categories`, config)
         .then((response) => {
@@ -118,7 +103,6 @@ app.get("/genre", async (req, res) => {
     });
 });
 
-// Playlist Selection Route
 app.get("/playlist", (req, res) => {
   const genre = req.query.genre;
 
@@ -144,7 +128,6 @@ app.get("/playlist", (req, res) => {
         },
       };
 
-      // Begin api request
       axios
         .get(
           `https://api.spotify.com/v1/browse/categories/${genre}/playlists`,
@@ -205,7 +188,6 @@ app.get("/tracks", (req, res) => {
         },
       };
 
-      // Begin api request
       axios
         .get(`https://api.spotify.com/v1/playlists/${playlist}/tracks`, config)
         .then((response) => {
@@ -292,8 +274,7 @@ app.put("/profile/:trackid", isLoggedIn, async (req, res) => {
       }
     );
 
-    // redirect back to the profile page
-    res.redirect("/profile"); // route
+    res.redirect("/profile"); 
   } catch (error) {
     console.log(error);
   }
@@ -307,7 +288,7 @@ app.get("/profile/:trackid", (req, res) => {
     .then((numRowsDeleted) => {
       console.log(numRowsDeleted);
     });
-  //redirect to user profile
+
   res.redirect("/profile");
 });
 
@@ -320,7 +301,6 @@ app.get("/reviews/new", (req, res) => {
     .then((track) => {
       res.render("reviews", {track, req})
     });
-  //redirect to user profile
 });
 
 app.post("/reviews", (req, res) => {
@@ -330,11 +310,9 @@ app.post("/reviews", (req, res) => {
     .then((review) => {
       
       res.redirect("/profile")
-      //res.render("reviews", {track, req})
     });
   })
 
-// access to all of our auth routes
 app.use("/auth", require("./controllers/auth"));
 
 const PORT = process.env.PORT || 3002;

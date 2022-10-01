@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-// Database
 const db = require('../models');
 
 const STRATEGY = new LocalStrategy({
@@ -24,12 +23,10 @@ const STRATEGY = new LocalStrategy({
         }
 })
 
-// Passport "serialize" info to be able to login
 passport.serializeUser((user, cb) => {
     cb(null, user.id);
 });
 
-// Passport deserializeUser to logout
 passport.deserializeUser(async (id, cb) => {
     try {
         const user = await db.user.findByPk(id);

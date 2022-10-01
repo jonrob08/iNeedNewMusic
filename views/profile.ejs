@@ -41,7 +41,6 @@
 
                       <%}%>
                   </td>
-                 <!-- serializing the song data as a json string so it can be read by jquery later on-->
                   <td><button class="btn btn-primary edit"  data-song='<%=JSON.stringify(track)%>' data-target="#editModal">Update this song</button></td>
                   <td><button class="btn btn-danger delete" data-song='<%=JSON.stringify(track)%>'  data-target="#removeModal">THIS SONG SUCKS!</button></td>
                 </tr>
@@ -114,29 +113,18 @@
 
   <script type="text/javascript">
     function showModalForRemove(){
-        // We extract the song data from the data attribute
         const {song} = jQuery(this).data()
-    
         $("#removeModal form").attr("action", `/profile/${song.id}?_method=DELETE`)
-        
         $("#removeModal").modal()
     }
     function showModalForUpdate(){
-        // We extract the song data from the data attribute
-
         const {song} = jQuery(this).data()
-        // Update the track title
         $("#trackEdit").val(song.trackTitle)
-        // Update the track artist
-
         $("#artistEdit").val(song.trackArtist)
-        // Change the url so it edits the correct song
         $("#editModal form").attr("action", `/profile/${song.id}?_method=PUT`)
-       // finally this line shows the modal
         $("#editModal").modal()
     }
 
-    //On click, we call the corresponding edit/delete functions
     jQuery(".edit").click(showModalForUpdate)
     jQuery(".delete").click(showModalForRemove)
     
